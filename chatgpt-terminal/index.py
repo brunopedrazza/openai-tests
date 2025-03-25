@@ -61,7 +61,6 @@ async def handle_streaming_response(response_stream) -> tuple[str, list]:
     response_started = False
     response_ended = False
     
-    is_tool_call = False
     print("\nAssistant: ", end="", flush=True)
     async for event in response_stream:
         # print(event)
@@ -69,7 +68,6 @@ async def handle_streaming_response(response_stream) -> tuple[str, list]:
         
         # Handle tool calls
         if delta.tool_calls:
-            is_tool_call = True
             for tool_call in delta.tool_calls:
                 # New tool call started
                 if tool_call.id:
